@@ -15,9 +15,9 @@ public class SelectItemBuilder implements ISelectItemBuilder.CanAs
     }
 
     @Override
-    public SelectItem as(String name)
-    {
-        alias = new Alias(columnRef, name);
+        public SelectItem as(String name)
+        {
+            alias = new Alias(columnRef, name);
         return this;
     }
 

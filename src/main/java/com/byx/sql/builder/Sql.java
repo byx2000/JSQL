@@ -14,4 +14,9 @@ public class Sql
     {
         return new All();
     }
+
+    public static IFromItemBuilder.CanAs table(String tableName)
+    {
+        return new FromItemBuilder(tableName);
+    }
 }
