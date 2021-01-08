@@ -14,4 +14,10 @@ public final class Query implements SqlComponent
         this.from = from;
         this.condition = condition;
     }
+
+    @Override
+    public String getSql()
+    {
+        return null;
+    }
 }
