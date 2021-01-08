@@ -5,9 +5,9 @@ import com.byx.sql.SelectItem;
 
 public class Sql
 {
-    public static CanAs column(String columnName)
+    public static ISelectItemBuilder.CanAs column(String columnName)
     {
-        return new SelectItemBuilder().column(columnName);
+        return new SelectItemBuilder(columnName);
     }
 
     public static SelectItem all()

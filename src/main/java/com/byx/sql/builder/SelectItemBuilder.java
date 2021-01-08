@@ -4,23 +4,14 @@ import com.byx.sql.Alias;
 import com.byx.sql.ColumnRef;
 import com.byx.sql.SelectItem;
 
-public class SelectItemBuilder implements CanColumn, CanAs
+public class SelectItemBuilder implements ISelectItemBuilder.CanAs
 {
-    private ColumnRef columnRef;
+    private final ColumnRef columnRef;
     private Alias alias;
 
-    @Override
-    public String getSql()
-    {
-        if (alias != null) return alias.getSql();
-        return columnRef.getSql();
-    }
-
-    @Override
-    public CanAs column(String columnName)
+    public SelectItemBuilder(String columnName)
     {
         columnRef = new ColumnRef(columnName);
-        return this;
     }
 
     @Override
@@ -28,5 +19,12 @@ public class SelectItemBuilder implements CanColumn, CanAs
     {
         alias = new Alias(columnRef, name);
         return this;
+    }
+
+    @Override
+    public String getSql()
+    {
+        if (alias != null) return alias.getSql();
+        return columnRef.getSql();
     }
 }
