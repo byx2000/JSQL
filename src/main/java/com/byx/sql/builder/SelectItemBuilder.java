@@ -1,30 +1,46 @@
 package com.byx.sql.builder;
 
-import com.byx.sql.Alias;
-import com.byx.sql.ColumnRef;
-import com.byx.sql.SelectItem;
+import com.byx.sql.*;
 
-public class SelectItemBuilder implements ISelectItemBuilder.CanAs
+public final class SelectItemBuilder implements ISelectItemBuilder.AfterColumn, ISelectItemBuilder.AfterOf, ISelectItemBuilder.AfterAs
 {
-    private final ColumnRef columnRef;
-    private Alias alias;
+    private final String columnName;
+    private String tableName;
+    private String alias;
 
     public SelectItemBuilder(String columnName)
     {
-        columnRef = new ColumnRef(columnName);
+        this.columnName = columnName;
     }
 
-    @Override
-        public SelectItem as(String name)
-        {
-            alias = new Alias(columnRef, name);
-        return this;
+    private Column buildColumn()
+    {
+        return new Column(columnName, tableName, alias);
     }
 
     @Override
     public String getSql()
     {
-        if (alias != null) return alias.getSql();
-        return columnRef.getSql();
+        return buildColumn().getSql();
+    }
+
+    @Override
+    public IConditionBuilder eq(IOperatorBuilder operatorBuilder)
+    {
+        return new ConditionBuilder(new ArithOperator(buildColumn(), operatorBuilder, "="));
+    }
+
+    @Override
+    public ISelectItemBuilder.AfterOf of(String tableName)
+    {
+        this.tableName = tableName;
+        return this;
+    }
+
+    @Override
+    public ISelectItemBuilder.AfterAs as(String alias)
+    {
+        this.alias = alias;
+        return this;
     }
 }

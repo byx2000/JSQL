@@ -4,8 +4,13 @@ import com.byx.sql.FromItem;
 
 public interface IFromItemBuilder
 {
-    interface CanAs extends FromItem
+    interface AfterTable extends FromItem
     {
-        FromItem as(String alias);
+        AfterAs as(String alias);
+    }
+
+    interface AfterAs extends FromItem
+    {
+
     }
 }

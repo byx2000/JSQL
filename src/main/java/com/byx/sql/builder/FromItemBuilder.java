@@ -1,30 +1,27 @@
 package com.byx.sql.builder;
 
-import com.byx.sql.Alias;
-import com.byx.sql.FromItem;
-import com.byx.sql.TableRef;
+import com.byx.sql.Table;
 
-public class FromItemBuilder implements IFromItemBuilder.CanAs
+public class FromItemBuilder implements IFromItemBuilder.AfterTable, IFromItemBuilder.AfterAs
 {
-    private final TableRef tableRef;
-    private Alias alias;
+    private final String tableName;
+    private String alias;
 
     public FromItemBuilder(String tableName)
     {
-        tableRef = new TableRef(tableName);
+        this.tableName = tableName;
     }
 
     @Override
     public String getSql()
     {
-        if (alias != null) return alias.getSql();
-        return tableRef.getSql();
+        return new Table(tableName, alias).getSql();
     }
 
     @Override
-    public FromItem as(String name)
+    public IFromItemBuilder.AfterAs as(String alias)
     {
-        alias = new Alias(tableRef, name);
+        this.alias = alias;
         return this;
     }
 }

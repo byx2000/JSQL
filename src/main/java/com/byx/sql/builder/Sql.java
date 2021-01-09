@@ -1,11 +1,12 @@
 package com.byx.sql.builder;
 
 import com.byx.sql.All;
+import com.byx.sql.Literal;
 import com.byx.sql.SelectItem;
 
 public class Sql
 {
-    public static ISelectItemBuilder.CanAs column(String columnName)
+    public static ISelectItemBuilder.AfterColumn column(String columnName)
     {
         return new SelectItemBuilder(columnName);
     }
@@ -15,8 +16,13 @@ public class Sql
         return new All();
     }
 
-    public static IFromItemBuilder.CanAs table(String tableName)
+    public static IFromItemBuilder.AfterTable table(String tableName)
     {
         return new FromItemBuilder(tableName);
+    }
+
+    public static <T> OperandBuilder literal(T value)
+    {
+        return new OperandBuilder(new Literal<>(value));
     }
 }
