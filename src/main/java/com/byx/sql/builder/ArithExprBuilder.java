@@ -1,5 +1,6 @@
 package com.byx.sql.builder;
 
+import com.byx.sql.ArithOperator;
 import com.byx.sql.CompareOperator;
 import com.byx.sql.ArithExpr;
 
@@ -16,6 +17,18 @@ public class ArithExprBuilder implements IArithExprBuilder
     public String getSql()
     {
         return arithExpr.getSql();
+    }
+
+    @Override
+    public IArithExprBuilder add(IArithExprBuilder arithExprBuilder)
+    {
+        return new ArithExprBuilder(new ArithOperator(arithExpr, arithExprBuilder, "+"));
+    }
+
+    @Override
+    public IArithExprBuilder sub(IArithExprBuilder arithExprBuilder)
+    {
+        return new ArithExprBuilder(new ArithOperator(arithExpr, arithExprBuilder, "-"));
     }
 
     @Override

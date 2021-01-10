@@ -25,6 +25,18 @@ public final class SelectItemBuilder implements ISelectItemBuilder.AfterColumn, 
     }
 
     @Override
+    public IArithExprBuilder add(IArithExprBuilder arithExprBuilder)
+    {
+        return new ArithExprBuilder(new ArithOperator(buildColumn(), arithExprBuilder, "+"));
+    }
+
+    @Override
+    public IArithExprBuilder sub(IArithExprBuilder arithExprBuilder)
+    {
+        return new ArithExprBuilder(new ArithOperator(buildColumn(), arithExprBuilder, "-"));
+    }
+
+    @Override
     public IConditionBuilder eq(IArithExprBuilder arithExprBuilder)
     {
         return new ConditionBuilder(new CompareOperator(this, arithExprBuilder, "="));

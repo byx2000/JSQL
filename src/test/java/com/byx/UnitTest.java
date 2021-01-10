@@ -36,7 +36,7 @@ public class UnitTest
     }
 
     @Test
-    public void testOperand()
+    public void testArithExpr()
     {
         ArithExpr e1 = column("name");
         assertEquals("`name`", e1.getSql());
@@ -50,6 +50,10 @@ public class UnitTest
         assertEquals("'a'", e5.getSql());
         ArithExpr e6 = literal(3.14);
         assertEquals("3.14", e6.getSql());
+        ArithExpr e7 = column("level").add(literal(3));
+        assertEquals("(`level`) + (3)", e7.getSql());
+        ArithExpr e8 = literal("byx").sub(column("score"));
+        assertEquals("('byx') - (`score`)", e8.getSql());
     }
 
     @Test
@@ -79,5 +83,7 @@ public class UnitTest
         assertEquals("(`level`) < (`score`)", c11.getSql());
         Condition c12 = literal("byx").eq(column("nickname"));
         assertEquals("('byx') = (`nickname`)", c12.getSql());
+        Condition c13 = column("score").add(literal(10)).gt(literal(5.5));
+        assertEquals("((`score`) + (10)) > (5.5)", c13.getSql());
     }
 }
