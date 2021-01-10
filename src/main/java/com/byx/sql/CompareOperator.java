@@ -1,11 +1,11 @@
 package com.byx.sql;
 
-public class ArithOperator implements Condition
+public class CompareOperator implements Condition
 {
     private final ArithExpr lhs, rhs;
     private final String op;
 
-    public ArithOperator(ArithExpr lhs, ArithExpr rhs, String op)
+    public CompareOperator(ArithExpr lhs, ArithExpr rhs, String op)
     {
         this.lhs = lhs;
         this.rhs = rhs;

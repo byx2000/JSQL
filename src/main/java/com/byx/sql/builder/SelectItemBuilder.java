@@ -27,19 +27,19 @@ public final class SelectItemBuilder implements ISelectItemBuilder.AfterColumn, 
     @Override
     public IConditionBuilder eq(IArithExprBuilder arithExprBuilder)
     {
-        return new ConditionBuilder(new ArithOperator(this, arithExprBuilder, "="));
+        return new ConditionBuilder(new CompareOperator(this, arithExprBuilder, "="));
     }
 
     @Override
     public IConditionBuilder gt(IArithExprBuilder arithExprBuilder)
     {
-        return new ConditionBuilder(new ArithOperator(this, arithExprBuilder, ">"));
+        return new ConditionBuilder(new CompareOperator(this, arithExprBuilder, ">"));
     }
 
     @Override
     public IConditionBuilder lt(IArithExprBuilder arithExprBuilder)
     {
-        return new ConditionBuilder(new ArithOperator(this, arithExprBuilder, "<"));
+        return new ConditionBuilder(new CompareOperator(this, arithExprBuilder, "<"));
     }
 
     @Override

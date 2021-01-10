@@ -1,6 +1,6 @@
 package com.byx.sql.builder;
 
-import com.byx.sql.ArithOperator;
+import com.byx.sql.CompareOperator;
 import com.byx.sql.ArithExpr;
 
 public class ArithExprBuilder implements IArithExprBuilder
@@ -21,18 +21,18 @@ public class ArithExprBuilder implements IArithExprBuilder
     @Override
     public IConditionBuilder eq(IArithExprBuilder arithExprBuilder)
     {
-        return new ConditionBuilder(new ArithOperator(arithExpr, arithExprBuilder, "="));
+        return new ConditionBuilder(new CompareOperator(arithExpr, arithExprBuilder, "="));
     }
 
     @Override
     public IConditionBuilder gt(IArithExprBuilder arithExprBuilder)
     {
-        return new ConditionBuilder(new ArithOperator(arithExpr, arithExprBuilder, ">"));
+        return new ConditionBuilder(new CompareOperator(arithExpr, arithExprBuilder, ">"));
     }
 
     @Override
     public IConditionBuilder lt(IArithExprBuilder arithExprBuilder)
     {
-        return new ConditionBuilder(new ArithOperator(arithExpr, arithExprBuilder, "<"));
+        return new ConditionBuilder(new CompareOperator(arithExpr, arithExprBuilder, "<"));
     }
 }
