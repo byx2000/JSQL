@@ -48,7 +48,7 @@ public class ArithExprBuilder implements IArithExprBuilder
     }
 
     @Override
-    public SelectItem as(String alias)
+    public ISelectItemBuilder as(String alias)
     {
         return () -> new CalculateColumn(arithExpr, alias).getSql();
     }
