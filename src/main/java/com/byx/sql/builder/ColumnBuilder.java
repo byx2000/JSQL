@@ -2,13 +2,13 @@ package com.byx.sql.builder;
 
 import com.byx.sql.*;
 
-public final class SelectItemBuilder implements ISelectItemBuilder.AfterColumn, ISelectItemBuilder.AfterOf, ISelectItemBuilder.AfterAs
+public final class ColumnBuilder implements IColumnBuilder, IColumnBuilder.AfterColumn, IColumnBuilder.AfterOf, IColumnBuilder.AfterAs
 {
     private final String columnName;
     private String tableName;
     private String alias;
 
-    public SelectItemBuilder(String columnName)
+    public ColumnBuilder(String columnName)
     {
         this.columnName = columnName;
     }
@@ -55,14 +55,14 @@ public final class SelectItemBuilder implements ISelectItemBuilder.AfterColumn, 
     }
 
     @Override
-    public ISelectItemBuilder.AfterOf of(String tableName)
+    public IColumnBuilder.AfterOf of(String tableName)
     {
         this.tableName = tableName;
         return this;
     }
 
     @Override
-    public ISelectItemBuilder.AfterAs as(String alias)
+    public IColumnBuilder.AfterAs as(String alias)
     {
         this.alias = alias;
         return this;

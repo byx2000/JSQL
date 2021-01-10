@@ -1,8 +1,6 @@
 package com.byx.sql.builder;
 
-import com.byx.sql.ArithOperator;
-import com.byx.sql.CompareOperator;
-import com.byx.sql.ArithExpr;
+import com.byx.sql.*;
 
 public class ArithExprBuilder implements IArithExprBuilder
 {
@@ -47,5 +45,11 @@ public class ArithExprBuilder implements IArithExprBuilder
     public IConditionBuilder lt(IArithExprBuilder arithExprBuilder)
     {
         return new ConditionBuilder(new CompareOperator(arithExpr, arithExprBuilder, "<"));
+    }
+
+    @Override
+    public SelectItem as(String alias)
+    {
+        return () -> new CalculateColumn(arithExpr, alias).getSql();
     }
 }

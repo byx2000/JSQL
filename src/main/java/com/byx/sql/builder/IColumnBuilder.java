@@ -3,7 +3,7 @@ package com.byx.sql.builder;
 import com.byx.sql.ArithExpr;
 import com.byx.sql.SelectItem;
 
-public interface ISelectItemBuilder
+public interface IColumnBuilder extends SelectItem
 {
     interface AfterColumn extends SelectItem, ArithExpr, IArithExprBuilder
     {

@@ -14,25 +14,35 @@ public class UnitTest
     @Test
     public void testSelectItem()
     {
-        SelectItem item1 = column("name");
-        assertEquals("`name`", item1.getSql());
-        SelectItem item2 = column("name").as("n");
-        assertEquals("`name` AS 'n'", item2.getSql());
-        SelectItem item3 = column("name").of("b");
-        assertEquals("`b`.`name`", item3.getSql());
-        SelectItem item4 = column("name").of("b").as("n");
-        assertEquals("`b`.`name` AS 'n'", item4.getSql());
-        SelectItem item5 = all();
-        assertEquals("*", item5.getSql());
+        SelectItem s1 = column("name");
+        assertEquals("`name`", s1.getSql());
+        SelectItem s2 = column("name").as("n");
+        assertEquals("`name` AS 'n'", s2.getSql());
+        SelectItem s3 = column("name").of("b");
+        assertEquals("`b`.`name`", s3.getSql());
+        SelectItem s4 = column("name").of("b").as("n");
+        assertEquals("`b`.`name` AS 'n'", s4.getSql());
+        SelectItem s5 = all();
+        assertEquals("*", s5.getSql());
+        SelectItem s6 = column("level").add(literal(5));
+        assertEquals("(`level`) + (5)", s6.getSql());
+        SelectItem s7 = column("level").sub(literal(5)).as("n");
+        assertEquals("(`level`) - (5) AS 'n'", s7.getSql());
+        SelectItem s8 = column("score").of("b").add(literal(3.14));
+        assertEquals("(`b`.`score`) + (3.14)", s8.getSql());
+        SelectItem s9 = column("score").of("b").add(literal(3.14)).as("s");
+        assertEquals("(`b`.`score`) + (3.14) AS 's'", s9.getSql());
+        SelectItem s10 = column("likeCount").add(column("dislikeCount")).as("heat");
+        assertEquals("(`likeCount`) + (`dislikeCount`) AS 'heat'", s10.getSql());
     }
 
     @Test
     public void testFromItem()
     {
-        FromItem item1 = table("users");
-        assertEquals("`users`", item1.getSql());
-        FromItem item2 = table("users").as("u");
-        assertEquals("`users` AS 'u'", item2.getSql());
+        FromItem f1 = table("users");
+        assertEquals("`users`", f1.getSql());
+        FromItem f2 = table("users").as("u");
+        assertEquals("`users` AS 'u'", f2.getSql());
     }
 
     @Test

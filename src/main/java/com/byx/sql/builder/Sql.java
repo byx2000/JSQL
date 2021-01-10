@@ -6,9 +6,9 @@ import com.byx.sql.SelectItem;
 
 public class Sql
 {
-    public static ISelectItemBuilder.AfterColumn column(String columnName)
+    public static IColumnBuilder.AfterColumn column(String columnName)
     {
-        return new SelectItemBuilder(columnName);
+        return new ColumnBuilder(columnName);
     }
 
     public static SelectItem all()
