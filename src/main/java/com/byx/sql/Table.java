@@ -15,7 +15,7 @@ public class Table implements FromItem, SqlComponent
     public String getSql()
     {
         String sql = "`" + tableName + "`";
-        if (alias != null) sql += " AS `" + alias + "`";
+        if (alias != null) sql += " AS '" + alias + "'";
         return sql;
     }
 }

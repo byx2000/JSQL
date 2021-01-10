@@ -32,7 +32,7 @@ public class UnitTest
         FromItem item1 = table("users");
         assertEquals("`users`", item1.getSql());
         FromItem item2 = table("users").as("u");
-        assertEquals("`users` AS `u`", item2.getSql());
+        assertEquals("`users` AS 'u'", item2.getSql());
     }
 
     @Test
