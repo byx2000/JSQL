@@ -21,8 +21,8 @@ public class Sql
         return new FromItemBuilder(tableName);
     }
 
-    public static <T> OperandBuilder literal(T value)
+    public static <T> ArithExprBuilder literal(T value)
     {
-        return new OperandBuilder(new Literal<>(value));
+        return new ArithExprBuilder(new Literal<>(value));
     }
 }

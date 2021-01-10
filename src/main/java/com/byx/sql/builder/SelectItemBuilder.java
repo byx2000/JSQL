@@ -25,7 +25,7 @@ public final class SelectItemBuilder implements ISelectItemBuilder.AfterColumn, 
     }
 
     @Override
-    public IConditionBuilder eq(IOperatorBuilder operatorBuilder)
+    public IConditionBuilder eq(IArithExprBuilder operatorBuilder)
     {
         return new ConditionBuilder(new ArithOperator(buildColumn(), operatorBuilder, "="));
     }

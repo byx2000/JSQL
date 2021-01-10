@@ -2,7 +2,7 @@ package com.byx;
 
 import com.byx.sql.Condition;
 import com.byx.sql.FromItem;
-import com.byx.sql.Operand;
+import com.byx.sql.ArithExpr;
 import com.byx.sql.SelectItem;
 import org.junit.jupiter.api.Test;
 
@@ -38,15 +38,15 @@ public class UnitTest
     @Test
     public void testOperand()
     {
-        Operand o1 = column("name");
+        ArithExpr o1 = column("name");
         assertEquals("`name`", o1.getSql());
-        Operand o2 = column("name").of("b");
+        ArithExpr o2 = column("name").of("b");
         assertEquals("`b`.`name`", o2.getSql());
-        Operand o3 = literal(123);
+        ArithExpr o3 = literal(123);
         assertEquals("123", o3.getSql());
-        Operand o4 = literal("byx");
+        ArithExpr o4 = literal("byx");
         assertEquals("'byx'", o4.getSql());
-        Operand o5 = literal('a');
+        ArithExpr o5 = literal('a');
         assertEquals("'a'", o5.getSql());
     }
 

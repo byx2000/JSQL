@@ -2,10 +2,10 @@ package com.byx.sql;
 
 public class ArithOperator implements Condition
 {
-    private final Operand lhs, rhs;
+    private final ArithExpr lhs, rhs;
     private final String op;
 
-    public ArithOperator(Operand lhs, Operand rhs, String op)
+    public ArithOperator(ArithExpr lhs, ArithExpr rhs, String op)
     {
         this.lhs = lhs;
         this.rhs = rhs;

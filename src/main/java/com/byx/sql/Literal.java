@@ -1,6 +1,6 @@
 package com.byx.sql;
 
-public final class Literal<T> implements Operand
+public final class Literal<T> implements ArithExpr
 {
     private final T value;
 

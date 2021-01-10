@@ -1,6 +1,6 @@
 package com.byx.sql;
 
-public final class Column implements SelectItem, Operand, SqlComponent
+public final class Column implements SelectItem, ArithExpr, SqlComponent
 {
     private final String columnName;
     private final String tableName;
