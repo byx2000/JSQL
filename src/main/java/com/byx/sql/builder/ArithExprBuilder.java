@@ -19,8 +19,20 @@ public class ArithExprBuilder implements IArithExprBuilder
     }
 
     @Override
-    public IConditionBuilder eq(IArithExprBuilder operatorBuilder)
+    public IConditionBuilder eq(IArithExprBuilder arithExprBuilder)
     {
-        return new ConditionBuilder(new ArithOperator(arithExpr, operatorBuilder, "="));
+        return new ConditionBuilder(new ArithOperator(arithExpr, arithExprBuilder, "="));
+    }
+
+    @Override
+    public IConditionBuilder gt(IArithExprBuilder arithExprBuilder)
+    {
+        return new ConditionBuilder(new ArithOperator(arithExpr, arithExprBuilder, ">"));
+    }
+
+    @Override
+    public IConditionBuilder lt(IArithExprBuilder arithExprBuilder)
+    {
+        return new ConditionBuilder(new ArithOperator(arithExpr, arithExprBuilder, "<"));
     }
 }

@@ -38,16 +38,18 @@ public class UnitTest
     @Test
     public void testOperand()
     {
-        ArithExpr o1 = column("name");
-        assertEquals("`name`", o1.getSql());
-        ArithExpr o2 = column("name").of("b");
-        assertEquals("`b`.`name`", o2.getSql());
-        ArithExpr o3 = literal(123);
-        assertEquals("123", o3.getSql());
-        ArithExpr o4 = literal("byx");
-        assertEquals("'byx'", o4.getSql());
-        ArithExpr o5 = literal('a');
-        assertEquals("'a'", o5.getSql());
+        ArithExpr e1 = column("name");
+        assertEquals("`name`", e1.getSql());
+        ArithExpr e2 = column("name").of("b");
+        assertEquals("`b`.`name`", e2.getSql());
+        ArithExpr e3 = literal(123);
+        assertEquals("123", e3.getSql());
+        ArithExpr e4 = literal("byx");
+        assertEquals("'byx'", e4.getSql());
+        ArithExpr e5 = literal('a');
+        assertEquals("'a'", e5.getSql());
+        ArithExpr e6 = literal(3.14);
+        assertEquals("3.14", e6.getSql());
     }
 
     @Test
@@ -71,5 +73,11 @@ public class UnitTest
         assertEquals("(`b`.`name`) = (`u`.`nickname`)", c8.getSql());
         Condition c9 = column("id").eq(literal(1001)).and(column("name").eq(column("nickname")));
         assertEquals("((`id`) = (1001)) AND ((`name`) = (`nickname`))", c9.getSql());
+        Condition c10 = column("level").gt(literal(5));
+        assertEquals("(`level`) > (5)", c10.getSql());
+        Condition c11 = column("level").lt(column("score"));
+        assertEquals("(`level`) < (`score`)", c11.getSql());
+        Condition c12 = literal("byx").eq(column("nickname"));
+        assertEquals("('byx') = (`nickname`)", c12.getSql());
     }
 }
