@@ -1,9 +1,6 @@
 package com.byx;
 
-import com.byx.sql.Condition;
-import com.byx.sql.FromItem;
-import com.byx.sql.ArithExpr;
-import com.byx.sql.SelectItem;
+import com.byx.sql.*;
 import org.junit.jupiter.api.Test;
 
 import static com.byx.sql.builder.Sql.*;
@@ -95,5 +92,32 @@ public class UnitTest
         assertEquals("('byx') = (`nickname`)", c12.getSql());
         Condition c13 = column("score").add(literal(10)).gt(literal(5.5));
         assertEquals("((`score`) + (10)) > (5.5)", c13.getSql());
+    }
+
+    @Test
+    public void testQuery()
+    {
+        Query q1 = select(column("id")).from(table("users"));
+        assertEquals("SELECT `id` FROM `users`", q1.getSql());
+        Query q2 = select(column("id").as("i")).from(table("users").as("u"));
+        assertEquals("SELECT `id` AS 'i' FROM `users` AS 'u'", q2.getSql());
+        Query q3 = select(column("name").of("b")).from(table("books").as("b"));
+        assertEquals("SELECT `b`.`name` FROM `books` AS 'b'", q3.getSql());
+        Query q4 = select(column("name").of("b").as("n")).from(table("books").as("b"));
+        assertEquals("SELECT `b`.`name` AS 'n' FROM `books` AS 'b'", q4.getSql());
+        Query q5 = select(column("id")).from(table("users")).where(column("username").eq(literal("byx")));
+        assertEquals("SELECT `id` FROM `users` WHERE (`username`) = ('byx')", q5.getSql());
+        Query q6 = select(column("id").as("i")).from(table("users").as("u")).where(column("username").of("u").eq(literal("aaa")));
+        assertEquals("SELECT `id` AS 'i' FROM `users` AS 'u' WHERE (`u`.`username`) = ('aaa')", q6.getSql());
+        Query q7 = select(column("name"), column("password")).from(table("books"), table("users"));
+        assertEquals("SELECT `name`, `password` FROM `books`, `users`", q7.getSql());
+        Query q8 = select(column("name").of("b"), column("password").of("u")).from(table("books").as("b"), table("users").as("u"));
+        assertEquals("SELECT `b`.`name`, `u`.`password` FROM `books` AS 'b', `users` AS 'u'", q8.getSql());
+        Query q9 = select(column("id")).from(table("users")).where(literal("byx").eq(column("username")));
+        assertEquals("SELECT `id` FROM `users` WHERE ('byx') = (`username`)", q9.getSql());
+        Query q10 = select(column("id")).from(table("users")).where(column("level").add(literal(2)).gt(column("score").sub(literal(3))));
+        assertEquals("SELECT `id` FROM `users` WHERE ((`level`) + (2)) > ((`score`) - (3))", q10.getSql());
+        Query q11 = select(column("id")).from(table("users")).where(column("username").eq(literal("byx")).and(column("password").eq(literal("123"))));
+        assertEquals("SELECT `id` FROM `users` WHERE ((`username`) = ('byx')) AND ((`password`) = ('123'))", q11.getSql());
     }
 }

@@ -1,17 +1,16 @@
 package com.byx.sql.builder;
 
 import com.byx.sql.ArithExpr;
-import com.byx.sql.SelectItem;
 
 public interface IColumnBuilder extends ISelectItemBuilder
 {
-    interface AfterColumn extends SelectItem, ArithExpr, IArithExprBuilder
+    interface AfterColumn extends ISelectItemBuilder, ArithExpr, IArithExprBuilder
     {
         AfterOf of(String tableName);
         AfterAs as(String alias);
     }
 
-    interface AfterOf extends SelectItem, ArithExpr, IArithExprBuilder
+    interface AfterOf extends ISelectItemBuilder, ArithExpr, IArithExprBuilder
     {
         AfterAs as(String alias);
     }

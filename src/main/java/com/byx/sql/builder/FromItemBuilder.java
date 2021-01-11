@@ -2,7 +2,7 @@ package com.byx.sql.builder;
 
 import com.byx.sql.Table;
 
-public class FromItemBuilder implements IFromItemBuilder.AfterTable, IFromItemBuilder.AfterAs
+public class FromItemBuilder implements IFromItemBuilder, IFromItemBuilder.AfterTable, IFromItemBuilder.AfterAs
 {
     private final String tableName;
     private String alias;
