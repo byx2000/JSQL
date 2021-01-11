@@ -2,7 +2,6 @@ package com.byx.sql.builder;
 
 import com.byx.sql.All;
 import com.byx.sql.Literal;
-import com.byx.sql.SelectItem;
 
 import java.util.Arrays;
 
@@ -13,9 +12,9 @@ public class Sql
         return new ColumnBuilder(columnName);
     }
 
-    public static SelectItem all()
+    public static ISelectItemBuilder all()
     {
-        return new All();
+        return () -> new All().getSql();
     }
 
     public static IFromItemBuilder.AfterTable table(String tableName)

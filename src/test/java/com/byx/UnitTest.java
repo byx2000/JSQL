@@ -119,5 +119,7 @@ public class UnitTest
         assertEquals("SELECT `id` FROM `users` WHERE ((`level`) + (2)) > ((`score`) - (3))", q10.getSql());
         Query q11 = select(column("id")).from(table("users")).where(column("username").eq(literal("byx")).and(column("password").eq(literal("123"))));
         assertEquals("SELECT `id` FROM `users` WHERE ((`username`) = ('byx')) AND ((`password`) = ('123'))", q11.getSql());
+        Query q12 = select(all()).from(table("books"));
+        assertEquals("SELECT * FROM `books`", q12.getSql());
     }
 }
