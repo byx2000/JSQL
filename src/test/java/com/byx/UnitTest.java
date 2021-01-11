@@ -122,4 +122,17 @@ public class UnitTest
         Query q12 = select(all()).from(table("books"));
         assertEquals("SELECT * FROM `books`", q12.getSql());
     }
+
+    @Test
+    public void testQueryTableInFrom()
+    {
+        Query q1 = select(column("id1")).from(select(column("id2")).from(table("users")));
+        assertEquals("SELECT `id1` FROM (SELECT `id2` FROM `users`)", q1.getSql());
+        Query q2 = select(column("name").of("b")).from(select(column("author")).from(table("books")).as("b"));
+        assertEquals("SELECT `b`.`name` FROM (SELECT `author` FROM `books`) AS 'b'", q2.getSql());
+        Query q3 = select(column("name")).from(select(column("author")).from(table("books")).where(column("id").eq(literal(1001))));
+        assertEquals("SELECT `name` FROM (SELECT `author` FROM `books` WHERE (`id`) = (1001))", q3.getSql());
+        Query q4 = select(column("author")).from(select(column("author")).from(table("books")).where(column("id").eq(literal(1001)))).where(literal(1).eq(literal(1)));
+        assertEquals("SELECT `author` FROM (SELECT `author` FROM `books` WHERE (`id`) = (1001)) WHERE (1) = (1)", q4.getSql());
+    }
 }

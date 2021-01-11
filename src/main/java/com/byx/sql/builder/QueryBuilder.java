@@ -1,9 +1,6 @@
 package com.byx.sql.builder;
 
-import com.byx.sql.Condition;
-import com.byx.sql.FromItem;
-import com.byx.sql.Select;
-import com.byx.sql.SelectItem;
+import com.byx.sql.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,10 +16,15 @@ public class QueryBuilder implements IQueryBuilder, IQueryBuilder.AfterSelect, I
         this.selectItems = selectItems;
     }
 
+    private Query buildQuery()
+    {
+        return new Select(selectItems, fromItems, condition);
+    }
+
     @Override
     public String getSql()
     {
-        return new Select(selectItems, fromItems, condition).getSql();
+        return buildQuery().getSql();
     }
 
     @Override
@@ -37,5 +39,11 @@ public class QueryBuilder implements IQueryBuilder, IQueryBuilder.AfterSelect, I
     {
         this.condition = conditionBuilder;
         return this;
+    }
+
+    @Override
+    public AfterAs as(String alias)
+    {
+        return () -> new QueryTable(buildQuery(), alias).getSql();
     }
 }

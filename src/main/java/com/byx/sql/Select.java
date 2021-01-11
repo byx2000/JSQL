@@ -33,7 +33,10 @@ public final class Select implements Query
             sql.append(" FROM ");
             for (int i = 0; i < fromItems.size(); ++i)
             {
-                sql.append(fromItems.get(i).getSql());
+                if (fromItems.get(i) instanceof Query)
+                    sql.append("(").append(fromItems.get(i).getSql()).append(")");
+                else
+                    sql.append(fromItems.get(i).getSql());
                 if (i != fromItems.size() - 1) sql.append(", ");
             }
         }
