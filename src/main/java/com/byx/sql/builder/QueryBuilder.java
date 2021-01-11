@@ -42,8 +42,14 @@ public class QueryBuilder implements IQueryBuilder, IQueryBuilder.AfterSelect, I
     }
 
     @Override
-    public AfterAs as(String alias)
+    public SelectItemBuilderAndFromItemBuilder as(String alias)
     {
-        return () -> new QueryTable(buildQuery(), alias).getSql();
+        return () -> new SubQuery(buildQuery(), alias).getSql();
     }
+
+//    @Override
+//    public AfterAs as(String alias)
+//    {
+//        return () -> new QueryTable(buildQuery(), alias).getSql();
+//    }
 }

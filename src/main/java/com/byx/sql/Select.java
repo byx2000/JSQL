@@ -18,12 +18,17 @@ public final class Select implements Query
     @Override
     public String getSql()
     {
-        StringBuilder sql = new StringBuilder("SELECT ");
+        StringBuilder sql = new StringBuilder();
+
         if (selectItems != null && !selectItems.isEmpty())
         {
+            sql.append("SELECT ");
             for (int i = 0; i < selectItems.size(); ++i)
             {
-                sql.append(selectItems.get(i).getSql());
+                if (selectItems.get(i) instanceof Query)
+                    sql.append("(").append(selectItems.get(i).getSql()).append(")");
+                else
+                    sql.append(selectItems.get(i).getSql());
                 if (i != selectItems.size() - 1) sql.append(", ");
             }
         }

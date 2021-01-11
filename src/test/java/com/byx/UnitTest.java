@@ -135,4 +135,21 @@ public class UnitTest
         Query q4 = select(column("author")).from(select(column("author")).from(table("books")).where(column("id").eq(literal(1001)))).where(literal(1).eq(literal(1)));
         assertEquals("SELECT `author` FROM (SELECT `author` FROM `books` WHERE (`id`) = (1001)) WHERE (1) = (1)", q4.getSql());
     }
+
+    @Test
+    public void testQueryColumnInSelect()
+    {
+        Query q1 = select(select(column("id")).from(table("books"))).from(table("users"));
+        assertEquals("SELECT (SELECT `id` FROM `books`) FROM `users`", q1.getSql());
+        Query q2 = select(select(column("id")).from(table("books")).as("n")).from(table("users"));
+        assertEquals("SELECT (SELECT `id` FROM `books`) AS 'n' FROM `users`", q2.getSql());
+        Query q3 = select(select(column("id")).from(table("books")).where(column("id").eq(literal(1001)))).from(table("users"));
+        assertEquals("SELECT (SELECT `id` FROM `books` WHERE (`id`) = (1001)) FROM `users`", q3.getSql());
+        Query q4 = select(select(column("id")).from(table("books")).where(column("id").eq(literal(1001))).as("n")).from(table("users"));
+        assertEquals("SELECT (SELECT `id` FROM `books` WHERE (`id`) = (1001)) AS 'n' FROM `users`", q4.getSql());
+        Query q5 = select(select(column("id")).from(table("books")), column("name")).from(table("users"));
+        assertEquals("SELECT (SELECT `id` FROM `books`), `name` FROM `users`", q5.getSql());
+        Query q6 = select(column("username"), select(column("id")).from(table("books")).where(column("id").eq(literal(1001))).as("n")).from(table("users"));
+        assertEquals("SELECT `username`, (SELECT `id` FROM `books` WHERE (`id`) = (1001)) AS 'n' FROM `users`", q6.getSql());
+    }
 }

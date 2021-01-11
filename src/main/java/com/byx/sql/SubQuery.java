@@ -1,11 +1,11 @@
 package com.byx.sql;
 
-public final class QueryTable implements FromItem
+public final class SubQuery implements SelectItem, FromItem
 {
     private final Query query;
     private final String alias;
 
-    public QueryTable(Query query, String alias)
+    public SubQuery(Query query, String alias)
     {
         this.query = query;
         this.alias = alias;
